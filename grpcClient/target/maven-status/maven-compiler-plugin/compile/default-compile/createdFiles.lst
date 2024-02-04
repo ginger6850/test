@@ -3,6 +3,7 @@ org\example\GrpcStringClient.class
 com\example\grpc\GrpcServiceGrpc$GrpcServiceFileDescriptorSupplier.class
 com\example\grpc\GrpcServiceOuterClass$GrpcRequest.class
 com\example\grpc\GrpcServiceGrpc$1.class
+org\example\impl\GrpcStringClientImpl$2.class
 org\example\impl\GrpcStringClientImpl.class
 com\example\grpc\GrpcServiceGrpc.class
 com\example\grpc\GrpcServiceOuterClass$GrpcRequest$1.class
@@ -11,6 +12,7 @@ com\example\grpc\GrpcServiceOuterClass$GrpcResponse$Builder.class
 com\example\grpc\GrpcServiceOuterClass$GrpcResponse$1.class
 com\example\grpc\GrpcServiceOuterClass.class
 com\example\grpc\GrpcServiceOuterClass$GrpcRequestOrBuilder.class
+org\example\impl\GrpcStringClientImpl$1.class
 com\example\grpc\GrpcServiceGrpc$GrpcServiceFutureStub.class
 com\example\grpc\GrpcServiceGrpc$GrpcServiceStub.class
 com\example\grpc\GrpcServiceOuterClass$1.class

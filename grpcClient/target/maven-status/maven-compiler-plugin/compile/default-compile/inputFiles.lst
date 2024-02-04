@@ -1,4 +1,5 @@
-C:\Users\lantsifirova\t1Projects\mygrpc\grpcClient\src\main\java\org\example\GrpcServiceImpl.java
+C:\Users\lantsifirova\t1Projects\mygrpc\grpcClient\src\main\java\org\example\impl\GrpcStringClientImpl.java
+C:\Users\lantsifirova\t1Projects\mygrpc\grpcClient\src\main\java\org\example\GrpcStringClient.java
 C:\Users\lantsifirova\t1Projects\mygrpc\grpcClient\target\generated-sources\protobuf\grpc-java\com\example\grpc\GrpcServiceGrpc.java
 C:\Users\lantsifirova\t1Projects\mygrpc\grpcClient\target\generated-sources\protobuf\java\com\example\grpc\GrpcServiceOuterClass.java
-C:\Users\lantsifirova\t1Projects\mygrpc\grpcClient\src\main\java\org\example\App.java
+C:\Users\lantsifirova\t1Projects\mygrpc\grpcClient\src\main\java\org\example\GrpcClientApplication.java

@@ -10,11 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 //Реализация методов интерфейса,сгенерированного proto файлом
 public class GrpcServiceImpl extends GrpcServiceGrpc.GrpcServiceImplBase {
-
-    @Override//Метод реализует ответ сервера на основе данных, полученных от клиента
+    @Override
     public void getMessage(GrpcServiceOuterClass.GrpcRequest request, StreamObserver<GrpcServiceOuterClass.GrpcResponse> responseObserver) {
-        System.out.println(request);//Запрос от клиента
-//        log.info("Client request: {} ", request);
+        log.info("The Server received the Client's request: {} ", request);
         GrpcServiceOuterClass.GrpcResponse response = GrpcServiceOuterClass
                 .GrpcResponse
                 .newBuilder()
@@ -29,44 +27,47 @@ public class GrpcServiceImpl extends GrpcServiceGrpc.GrpcServiceImplBase {
                             + ", "
                             + request.getTasks(3))
                 .build();//Генерируем ответ сервера
-        log.info("Server response: {}", response);
+        log.info("The server generated a response: {}", response);
         responseObserver.onNext(response);//Ответ завернут в StreamObserver для обеспечения возможности потоковой передачи
 
         responseObserver.onCompleted();
     }
 
-    @Override//Метод реализует ответ сервера на пустой запрос
+    @Override
     public void getCurrentMessage(Empty request, StreamObserver<GrpcServiceOuterClass.GrpcResponse> responseObserver) {
+        log.info("The Server received an empty request from the Client: {}", request);
         responseObserver.onNext(GrpcServiceOuterClass.GrpcResponse
                 .newBuilder()
-                .setMessage("Может стоит уже ей поднять зарплату и грейд?")
+                .setMessage("Maybe it's time for her to raise her salary and grade?")
                 .build());
+        log.info("The Server generated a response to the Client");
         responseObserver.onCompleted();
     }
 
-    @Override//Метод реализует стрим данных со стороны клиента
+    @Override
     public StreamObserver<GrpcServiceOuterClass.GrpcRequest> clientStream(StreamObserver<Empty> responseObserver) {
         return new StreamObserver<>() {
             @Override
-            public void onNext(GrpcServiceOuterClass.GrpcRequest grpcRequest) {
-//                log.info("Client id: {} ", grpcRequest.getId());
+            public void onNext(GrpcServiceOuterClass.GrpcRequest request) {
+                log.info("Client id: {} ", request.getId());
             }
 
             @Override
             public void onError(Throwable throwable) {
-//                log.error("Throwable: ", throwable);
+                log.error("Throwable: ", throwable);
             }
 
             @Override
             public void onCompleted() {
-                responseObserver.onCompleted();
+
             }
         };
     }
 
     @Override
-//Метод реализует стрим данных со стороны сервера. Клиент открывает соединение и сервер начинает стрим данных
+
     public void serverStream(Empty request, StreamObserver<GrpcServiceOuterClass.GrpcResponse> responseObserver) {
+        log.info("The Server received an empty request from the Client: {}", request);
         int percent = 0;
         for (int i = 0; i < 7; i++) {
             percent += 5;
@@ -74,6 +75,7 @@ public class GrpcServiceImpl extends GrpcServiceGrpc.GrpcServiceImplBase {
                     .newBuilder()
                     .setMessage(String.valueOf(percent))
                     .build());
+            log.info("The Server generated a response to the Client: {}", percent);
         }
         responseObserver.onCompleted();
     }
@@ -84,14 +86,15 @@ public class GrpcServiceImpl extends GrpcServiceGrpc.GrpcServiceImplBase {
             @Override
             public void onNext(GrpcServiceOuterClass.GrpcRequest request) {
 
-                for (int i = 0; i <= 1; i++) {
+                for (int i = 0; i <= 5; i++) {
 
                     GrpcServiceOuterClass.GrpcResponse response = GrpcServiceOuterClass.GrpcResponse
                             .newBuilder()
                             .setCount(i)
-                            .setMessage("Сервер получил имя клиента: request.getName() = " + request.getName())
+                            .setMessage(request.getName())
                             .build();//Генерируем ответ сервера на запрос клиента
-//                    log.info("Сервер получил имя клиента: request.getName() = {}", request.getName());
+                    log.info("The server received the client name: request.getName() = {}", request.getName());
+                    log.info("The Server sent a response to the Client: {}", response);
                     responseObserver.onNext(response);
                 }
 
@@ -99,7 +102,7 @@ public class GrpcServiceImpl extends GrpcServiceGrpc.GrpcServiceImplBase {
 
             @Override
             public void onError(Throwable throwable) {
-//                log.error("Throwable: ", throwable);
+                log.error("Throwable: ", throwable);
             }
 
             @Override
