@@ -1,0 +1,10 @@
+log4j:
+  rootLogger: INFO, stdout
+  appender:
+    stdout:
+      layout:
+        url:org.apache.log4j.PatternLayout
+
+logger:
+  name: com.ning.http.client
+  level: WAR

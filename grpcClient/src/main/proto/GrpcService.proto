@@ -1,0 +1,22 @@
+syntax = "proto3";//синтаксис файла (версия языка proto)
+package com.example.grpc;//пакет, куда будет помещен сгенерированный код
+import "google/protobuf/empty.proto";
+//типы данных
+message GrpcRequest{
+  int64 id = 1;
+  string name = 2; //1 - тег для поля. Всегда уникален. Нужен для  представления ключа, т.к. занимает меньше места, чем строка. Будет сохранена один раз и далее по тегу будет сопостовляться, что за поле пришло в запросе
+  repeated string tasks = 3;//repeated - для представления массива данных
+}
+message GrpcResponse {
+  string message = 1;
+  int64 count = 2;
+}
+
+//Логическое объединение методов
+service GrpcService {
+  rpc getMessage(GrpcRequest) returns (GrpcResponse);
+  rpc getCurrentMessage(google.protobuf.Empty) returns (GrpcResponse);
+  rpc clientStream (stream GrpcRequest) returns (google.protobuf.Empty) {}
+  rpc serverStream (google.protobuf.Empty) returns (stream GrpcResponse) {}
+  rpc biDirectionalStream (stream GrpcRequest) returns (stream GrpcResponse) {}
+}
