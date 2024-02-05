@@ -102,8 +102,11 @@ public class GrpcStringClientImpl implements GrpcStringClient {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        log.info("Finished ClientStream");
+        finishLatch.countDown();
         finishLatch.await();
         requestObserver.onCompleted();
+
     }
 
     @Override
